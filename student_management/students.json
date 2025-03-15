@@ -22,15 +22,18 @@
         "name": "Charlie",
         "age": 22,
         "courses": [
-            "Biology"
+            "Biology",
+            "Robotics",
+            "Aerospace",
+            "Linguistics"
         ]
     },
     {
         "student_id": 105,
         "name": "Yunus",
-        "age": 24,
+        "age": 21,
         "courses": [
-            "Maths",
+            "Cs",
             "Chemistry"
         ]
     },
