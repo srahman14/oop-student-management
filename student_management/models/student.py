@@ -36,7 +36,7 @@ class Student:
 
         if old_course.capitalize() not in normalised_courses:
             print(f"\nCourse '{old_course}' does not exist")
-            print(f"\Student '{self.__name}' Current Enrollment:\nStudent Course(s): {self.__courses}\n")
+            print(f"\nStudent '{self.__name}' Current Enrollment:\nStudent Course(s): {self.__courses}\n")
             return
         
         if new_course.capitalize() in normalised_courses:
@@ -48,7 +48,7 @@ class Student:
             self.__courses[index] = new_course.capitalize().strip()
             print("Updating courses...")
             time.sleep(2)
-            print(f"\nUpdated Courses: [{', '.join(self.__courses)}]")
+            print(f"\nUpdated Course(s): [{', '.join(self.__courses)}]")
         except ValueError as e:
             print(f"Error updating course: {e}")
     
@@ -78,9 +78,10 @@ class Student:
             
     
     def update_age(self, age: int):
-        if len(str(age)) == 0: 
-            print("Update Age:\n- Age must be 1 character minimum\n") 
-    
+        if len(str(age)) <= 1 or len(str(age)) > 3: 
+            print("Update Age:\n- Age must be 2 digits minimum\n- Age cannot be more than 3 digits long\n") 
+        if age == 0:
+            print("Update Age:\n- Age cannot be 0\n") 
         if type(age) != int:
             print("Only numbers accepted for updating age")
             return
@@ -95,9 +96,22 @@ class Student:
                 print(f"Error: Course '{new_course}' already exists")
             else:
                 self.__courses.append(new_course)
-                print(f"Added: Course '{new_course}' added for {self.__name}")
+                print(f"Added: Course '{new_course}' added for {self.__name}, ID: {self.__student_id}")
         
-        print(f"Updated Courses \n {', '.join(self.__courses)}")
+        print(f"\nUpdated Course(s):\n {', '.join(self.__courses)}")
+
+    def remove_course(self, remove_course):
+        if len(self.__courses) == 0:
+            print(f"Error: Cannot remove courses from a student with no courses")
+            return
+        if remove_course not in self.__courses:
+            print(f"Error: Course '{remove_course}' does not exist for student {self.__name} with ID: {self.__student_id}")
+            return
+        else:
+            self.__courses.remove(remove_course)
+            print(f"Removed: Course '{remove_course}' for {self.__name}, ID: {self.__student_id}")
+    
+        print(f"\nUpdated Course(s):\n {', '.join(self.__courses)}")
 
     def get_student_id(self):
         return self.__student_id
