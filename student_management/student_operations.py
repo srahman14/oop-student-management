@@ -1,55 +1,32 @@
 import json
 import re
 from models.student import Student
-from models.student import StudentEncoder
-from models.student import StudentDecoder
-from exceptions import DuplicateIDExcption
-from exceptions import InvalidIDException
+from models.undergraduate import Undergraduate
+from storage import load_students, save_students
+from exceptions import DuplicateIDExcption, InvalidIDException 
+from validation import validate_student_id
 
-def validate_student_id(student_id):
-    # Check if the student_id is only numbers
-    if type(student_id) != int:
-        raise InvalidIDException(f"{student_id} is not a valid entry. ID can only consist of numbers")
-    # Check if the student_id is 0 or None (i.e. unset/undefined)
-    if student_id == 0 or student_id is None:
-        raise InvalidIDException(f"{student_id} is not a valid entry. ID cannot be undefined")
-    # Check if the student_id is less than 6 characters
-    if not bool(re.fullmatch(r"\d{6}", str(student_id))):
-        raise InvalidIDException(f"{student_id} is not a valid entry. ID must be 6 digits minimum")
 
-    # Check for an ID which already exists in the database (i.e. duplicate ID entry)
-    try:
-        with open("student_management/students.json", "r") as f:
-            students_data = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        students_data = [] # IF the file does not exist or is empty, start with an empty list
-
-    duplicate_count = sum(1 for s in students_data if s['student_id'] == student_id)
-    if duplicate_count > 1:
-        raise DuplicateIDExcption(f"More than one student with ID: {student_id}. {duplicate_count} number of students with ID: {student_id}")
-    
-    # if no conditions met, then the ID is valid
-    return True
-
-def add_student(student_id, name, age, courses):
+def find_student_by_id(student_id):
+    students_data = load_students()
+    for student in students_data:
+        if student.get_student_id() == student_id:
+            return student
+    return None
+def add_student(student_id: int, name: str, age: int, courses: list, undergrad: bool, minor: list):
     try:
         validate_student_id(student_id)
-        try:
-            with open("student_management/students.json", "r") as f:
-                students_data = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            students_data = [] # IF the file does not exist or is empty, start with an empty list
-
-        if not validate_student_id(student_id):
-            return
+        
+        students_data = load_students()
+        if undergrad:
+            new_student = Undergraduate(student_id, name, age, courses, minor)
         else:
-            new_student = Student(student_id, name, age, courses)
-            students_data.append(new_student)
+            new_student = Student()
+        students_data.append(new_student)
 
-        with open("student_management/students.json", "w") as f:
-            json.dump(students_data, f, cls=StudentEncoder, indent=4)
-
+        save_students(students_data)
         print(f"Student {student_id} has been added successfully!")
+
     except InvalidIDException as e:
         print(f"Error: {e}")
     except DuplicateIDExcption as e:
@@ -58,30 +35,30 @@ def add_student(student_id, name, age, courses):
         print(f"Unexpected error: {e}")
         
 def list_all_students():
-    try:
-        with open("student_management/students.json", "r") as f:
-            students_data = json.load(f, cls=StudentDecoder)
-    except (FileNotFoundError, json.JSONDecodeError):
-        students_data = [] # IF the file does not exist or is empty, start with an empty list
-
+    students_data = load_students()
     for i in students_data:
         print(i)
-
+        
+def list_a_student(student_id):
+    students_data = load_students()
+    for student in students_data:
+        if student.get_student_id() == student_id:
+            print(student)
+        
 def update_student(student_id, new_name=None, new_age=None, old_course=None, new_course=None):
-    if new_name is None and new_age is None and new_course is None: return "Nothing has been updated"
+    if new_name is None and new_age is None and new_course is None: return "Nothing to update"
 
     try:
         validate_student_id(student_id)
     except InvalidIDException as e:
         print(f"Error: {e}")
+        return
     except Exception as e:
         print(f"Unexpected error: {e}")        
+        return
 
-    try:
-        with open("student_management/students.json", "r") as f:
-            students_data = json.load(f, cls=StudentDecoder)
-    except (FileNotFoundError, json.JSONDecodeError):
-        print("No students found.")
+    students_data = load_students()
+    if students_data is None:
         return
 
     # Flag to track if student to be updated found
@@ -110,11 +87,7 @@ def update_student(student_id, new_name=None, new_age=None, old_course=None, new
         print(f"Error: Student with ID {student_id} not found.")
         return
 
-    try:
-        with open("student_management/students.json", "w") as f:
-            json.dump(students_data, f, indent=4, cls=StudentEncoder)
-    except Exception as e:
-        print(f"Error writing to file: {e}")           
+    save_students(students_data)    
 
 def add_new_courses(student_id, new_courses):
     try:
@@ -126,12 +99,7 @@ def add_new_courses(student_id, new_courses):
     except Exception as e:
         print(f"Unexpected error: {e}") 
 
-    try:
-        with open("student_management/students.json", "r") as f:
-            students_data = json.load(f, cls=StudentDecoder)
-    except (FileNotFoundError, json.JSONDecodeError):
-        print("No students found.")
-        return
+    students_data = load_students()
 
     # Flag to track if student to be updated found
     student_found = False
@@ -149,11 +117,7 @@ def add_new_courses(student_id, new_courses):
         print(f"Error: Student with ID {student_id} not found.")
         return
 
-    try:
-        with open("student_management/students.json", "w") as f:
-            json.dump(students_data, f, indent=4, cls=StudentEncoder)
-    except Exception as e:
-        print(f"Error writing to file: {e}")      
+    save_students(students_data)    
 
 
 def remove_course(student_id, remove_this_course):
@@ -166,12 +130,7 @@ def remove_course(student_id, remove_this_course):
     except Exception as e:
         print(f"Unexpected error: {e}") 
 
-    try:
-        with open("student_management/students.json", "r") as f:
-            students_data = json.load(f, cls=StudentDecoder)
-    except (FileNotFoundError, json.JSONDecodeError):
-        print("No students found.")
-        return
+    students_data = load_students()
 
     # Flag to track if student to be updated found
     student_found = False
@@ -187,11 +146,7 @@ def remove_course(student_id, remove_this_course):
         print(f"Error: Student with ID {student_id} not found.")
         return
 
-    try:
-        with open("student_management/students.json", "w") as f:
-            json.dump(students_data, f, indent=4, cls=StudentEncoder)
-    except Exception as e:
-        print(f"Error writing to file: {e}")      
+    save_students(students_data)
 
 def del_student(student_id):
     try:
@@ -202,12 +157,8 @@ def del_student(student_id):
         print(f"Error: {e}")
     
     # Open JSON
-    try:
-        with open("student_management/students.json", "r") as f:
-            students_data = json.load(f, cls=StudentDecoder)
-    except (FileNotFoundError, json.JSONDecodeError):
-        print("No students found.")
-        return
+    students_data = load_students()
+
 
     student_found = False
     final_check = ""
@@ -224,13 +175,12 @@ def del_student(student_id):
                 break
     
     if not student_found:
-        raise InvalidIDException(f"Error: Student with ID {student_id} not found")
+        print(f"Error: Student with ID {student_id} not found")
 
     # Close JSON
     if final_check == "y":
         try:
-            with open("student_management/students.json", "w") as f:
-                json.dump(students_data, f, indent=4, cls=StudentEncoder)
+            save_students(load_students)
             print(f"Student with ID {student_id} has been deleted")
         except Exception as e:
             print(f"Error writing to file {e}")
