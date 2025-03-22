@@ -1,4 +1,4 @@
-from student import Student
+from models.student import Student
 
 class Undergraduate(Student):
     def __init__(self, student_id, name, age, courses, minor):
@@ -10,6 +10,7 @@ class Undergraduate(Student):
         existing_details = super().get_student_details() 
         return f"{existing_details}\nMinor: {self.__minor}"
 
-
-john = Undergraduate(101, "John Doe", 20, ["CS", "AI"], "Mathematics")
-print(john.get_details())
+    def get_minor(self):
+        return self.__minor
+# john = Undergraduate(101, "John Doe", 20, ["CS", "AI"], "Mathematics")
+# print(john.get_details())

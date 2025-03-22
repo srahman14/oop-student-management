@@ -1,5 +1,4 @@
 import time
-import json
 
 class Student:
     def __init__(self, student_id, name, age, courses):
@@ -137,23 +136,6 @@ class Student:
     # Useful for debugging
     def __repr__(self):
         return f"Student(student_id={self.get_student_id()}, name={self.get_name()}, age={self.get_age()}, courses={self.get_courses()})"
-
-
-class StudentEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, Student):
-            return {"student_id": o.get_student_id(), "name": o.get_name(), "age": o.get_age(), "courses": o.get_courses()}
-        
-        return super().default(o)
-
-class StudentDecoder(json.JSONDecoder):
-    def __init__(self):
-        super().__init__(object_hook=self.object_hook)
-
-    def object_hook(self, dct):
-        if "student_id" in dct and "name" in dct and "age" in dct and "courses" in dct:
-            return Student(dct["student_id"], dct["name"], dct["age"], dct["courses"])
-        return dct
         
 
 
