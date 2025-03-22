@@ -7,6 +7,8 @@ from student_operations import add_student, list_all_students, update_student, a
 # add_student(105, "Yunus", 24, ["Maths", "Chemistry"])
 # add_student(107, "Muhammad", 19, ["Maths", "Physics", "Biology"])
 # add_student(190325, "Yusuf", 20, ["Psychology"])
+add_student(111111, "Saeed", 26, ["Computer Science", "Networking"], True, "Mandarin")
+
 
 # print("\nListing Students:")
 # list_all_students()
@@ -27,10 +29,4 @@ from student_operations import add_student, list_all_students, update_student, a
 
 # print()
 # print("\nListing Students:")
-# list_all_students()
-
-# del_student(101)
-# del_student(104)
-# del_student(102)
-
 # list_all_students()
