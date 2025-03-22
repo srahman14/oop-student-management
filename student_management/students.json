@@ -56,5 +56,74 @@
             "Robotics",
             "Aerospace"
         ]
+    },
+    {
+        "student_id": 220325,
+        "name": "Saeed",
+        "age": 26,
+        "courses": [
+            "Computer Science",
+            "Networking"
+        ],
+        "minor": "Mandarin"
+    },
+    {
+        "student_id": 221325,
+        "name": "Test Subject",
+        "age": 22,
+        "courses": [
+            "Arabic",
+            "Computer Science"
+        ],
+        "minor": [
+            "Fiqh",
+            " Hadith"
+        ]
+    },
+    {
+        "student_id": 222325,
+        "name": "Laytul Qadr",
+        "age": 1000,
+        "courses": [
+            "Amr"
+        ],
+        "minor": [
+            "Ruh",
+            " Malaaikah"
+        ]
+    },
+    {
+        "student_id": 123456,
+        "name": "i want to sleep",
+        "age": 19,
+        "courses": [
+            "LOL"
+        ],
+        "minor": [
+            "Im tired",
+            " as hell"
+        ]
+    },
+    {
+        "student_id": 111111,
+        "name": "Saeed",
+        "age": 26,
+        "courses": [
+            "Computer Science",
+            "Networking"
+        ],
+        "minor": "Mandarin"
+    },
+    {
+        "student_id": 123902,
+        "name": "sid",
+        "age": 17,
+        "courses": [
+            "music"
+        ],
+        "minor": [
+            "lets",
+            " goo"
+        ]
     }
 ]
