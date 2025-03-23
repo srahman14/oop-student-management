@@ -45,17 +45,17 @@ def list_a_student(student_id):
         if student.get_student_id() == student_id:
             print(student)
         
-def update_student(student_id, new_name=None, new_age=None, old_course=None, new_course=None):
+def update_student(student_id, new_name=None, new_age=None, old_course=None, new_course=None, minors=None):
     if new_name is None and new_age is None and new_course is None: return "Nothing to update"
 
-    try:
-        validate_student_id(student_id)
-    except InvalidIDException as e:
-        print(f"Error: {e}")
-        return
-    except Exception as e:
-        print(f"Unexpected error: {e}")        
-        return
+    # try:
+    #     validate_student_id(student_id)
+    # except InvalidIDException as e:
+    #     print(f"Error: {e}")
+    #     return
+    # except Exception as e:
+    #     print(f"Unexpected error: {e}")        
+    #     return
 
     students_data = load_students()
     if students_data is None:
@@ -79,7 +79,12 @@ def update_student(student_id, new_name=None, new_age=None, old_course=None, new
                 print(f"Student Age for {student_id} updated successfully!")
             if old_course and new_course:
                 student.update_courses(old_course, new_course)
-
+            if minors is not None:
+                if isinstance(student, Undergraduate):
+                    student.update_minors(new_minors=minors)
+                else:
+                    print(f"Error: Student with ID {student_id} is not an undergraduate. Cannot update minors, as they don't exist")
+            
             print(f"Student with ID: {student_id} updated successfully for valid entries")
             break
 
@@ -119,6 +124,38 @@ def add_new_courses(student_id, new_courses):
 
     save_students(students_data)    
 
+def add_new_minors(student_id, new_minors):
+    try:
+        validate_student_id(student_id)
+    except InvalidIDException as e:
+        print(f"Error: {e}")
+    except DuplicateIDExcption as e:
+        print(f"Error: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}") 
+
+    students_data = load_students()
+
+    # Flag to track if student to be updated found
+    student_found = False
+    for student in students_data:
+        if student.get_student_id() == student_id:
+            student_found = True
+
+            if isinstance(student, Undergraduate):
+                if new_minors and len(new_minors) > 0:
+                    student.add_minors(new_minors)
+                else:
+                    print("Error: No minors to add")
+            else:
+                print(f"Error: Student with ID {student_id} is not an undergradute. Cannot add minors.")
+        break
+
+    if not student_found:
+        print(f"Error: Student with ID {student_id} not found.")
+        return
+
+    save_students(students_data) 
 
 def remove_course(student_id, remove_this_course):
     try:
@@ -141,6 +178,42 @@ def remove_course(student_id, remove_this_course):
             if remove_this_course and len(remove_this_course) > 0:
                 student.remove_course(remove_this_course)
                 break
+
+    if not student_found:
+        print(f"Error: Student with ID {student_id} not found.")
+        return
+
+    save_students(students_data)
+
+def remove_minor(student_id, remove_this_minor):
+    try:
+        validate_student_id(student_id)
+    except InvalidIDException as e:
+        print(f"Error: {e}")
+    except DuplicateIDExcption as e:
+        print(f"Error: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}") 
+
+    students_data = load_students()
+
+    # Flag to track if student to be updated found
+    student_found = False
+    for student in students_data:
+        if student.get_student_id() == student_id:
+            student_found = True
+
+            if isinstance(student, Undergraduate):
+                if remove_this_minor and len(remove_this_minor) > 0:
+                    student.remove_minor(remove_this_minor)
+                    return
+                else:
+                    print(f"Error: error removing {remove_this_minor}. Try again.")
+                    return
+            else:
+                print(f"Error: Student with ID {student_id} is not an undergradute. Cannot add minors.")
+                return
+        
 
     if not student_found:
         print(f"Error: Student with ID {student_id} not found.")

@@ -116,8 +116,8 @@
     },
     {
         "student_id": 123902,
-        "name": "sid",
-        "age": 17,
+        "name": "Siddy",
+        "age": 20,
         "courses": [
             "music"
         ],
