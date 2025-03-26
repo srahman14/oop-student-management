@@ -28,7 +28,7 @@ def main():
                 undergrad = input("Is the student an undergrad with a minor (y/n): ")
                 if undergrad.lower().strip() == "y":
                     minors_inputs = input("Enter the student's minor/s (separated by commans if more than 1 minor): ")
-                minors = [minor for minor in minors_inputs.split(",")]
+                    minors = [minor for minor in minors_inputs.split(",")]
                 courses_inputs = input("Enter the course(s) (separated by commas if more than 1 course): ")
                 courses = [course.strip() for course in courses_inputs.split(",")]
 
@@ -40,7 +40,7 @@ def main():
                     add_student(student_id, student_name, student_age, courses, False, None)
             except InvalidIDException as e:
                 print(f"Error: {e}")
-            except DuplicateIDExcption as e:
+            except DuplicateIDException as e:
                 print(f"Error: {e}")
             except Exception as e:
                 print(f"Unexpected error: {e}") 
@@ -62,6 +62,8 @@ def main():
                 print("6. Update Minors")
                 print("7. Add New Minors")
                 print("8. Remove a Minor")
+                print("9. Back to Menu")
+
 
                 
                 update_choice = int(input("Enter your choice (1-5): "))
@@ -107,6 +109,8 @@ def main():
                     remove_this_minor = input("Enter the minor to remove: ").strip()
                     remove_minor(student_id, remove_this_minor)
                     time.sleep(1.2)
+                elif update_choice == 9:
+                    continue
 
                 else:
                     print("Invalid choice. Please enter a valid option")
@@ -118,11 +122,11 @@ def main():
         elif choice == 3:
             student_id = int(input("Enter the student ID to delete (6 digits minimum): "))
             try:
-                validate_student_id(student_id)
+                validate_student_id(student_id, True)
                 del_student(student_id)
             except InvalidIDException as e:
                 print(f"Error: {e}")
-            except DuplicateIDExcption as e:
+            except DuplicateIDException as e:
                 print(f"Error: {e}")
             except Exception as e:
                 print(f"Unexpected error: {e}") 
