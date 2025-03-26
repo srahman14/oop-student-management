@@ -65,7 +65,9 @@
             "Computer Science",
             "Networking"
         ],
-        "minor": "Mandarin"
+        "minor": [
+            "Mandarin"
+        ]
     },
     {
         "student_id": 221325,
@@ -112,14 +114,17 @@
             "Computer Science",
             "Networking"
         ],
-        "minor": "Mandarin"
+        "minor": [
+            "Mandarin"
+        ]
     },
     {
         "student_id": 123902,
-        "name": "Siddy",
-        "age": 20,
+        "name": "Shahjalal",
+        "age": 25,
         "courses": [
-            "music"
+            "Quran",
+            "Hadith"
         ],
         "minor": [
             "lets",
