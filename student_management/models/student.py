@@ -123,20 +123,30 @@ class Student:
 
     def get_courses(self):
         return self.__courses
+    
+    def get_minor(self):
+        # This will return an empty list if no minors are assigned, or minors from the subclass
+        if hasattr(self, '_Undergraduate__minors'):  # Check if this attribute exists
+            return getattr(self, '_Undergraduate__minors')
+        return []  # No minors in base Student class
 
     # Useful for when object is printed
     def __str__(self):
         courses_str = "\n - ".join(self.get_courses())
+        minors_str = "\n - ".join(self.get_minor()) if self.get_minor() else "No minors assigned."
+
         return (f"Student ID: {self.get_student_id()}\n"
                 f"Student Name: {self.get_name()}\n"
                 f"Student Age: {self.get_age()}\n"
                 f"Student Courses:\n - {courses_str}\n"
+                f"Student Minors: \n - {minors_str}\n"
                 f"---------------------------------------------------------------------------")
 
     # Useful for debugging
     def __repr__(self):
-        return f"Student(student_id={self.get_student_id()}, name={self.get_name()}, age={self.get_age()}, courses={self.get_courses()})"
-        
+        return (f"Student(student_id={self.get_student_id()}, "
+                f"name={self.get_name()}, age={self.get_age()}, "
+                f"courses={self.get_courses()}, minors={self.get_minor()})")    
 
 
 # john = Student(0(), "John", 18, ["History", "Spanish", "Maths"])
