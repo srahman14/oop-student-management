@@ -4,7 +4,7 @@ class InvalidIDException(Exception):
         self.message = message
         super().__init__(self.message)
 
-class DuplicateIDExcption(Exception):
+class DuplicateIDException(Exception):
     # Exception for when a dupliate ID is found
     def __init__(self, message):
         self.message = message
