@@ -2,7 +2,7 @@ from exceptions import DuplicateIDException, InvalidIDException
 from storage import load_students
 from models.student import Student
 
-def validate_student_id(student_id, for_deletion=False, for_minors=False):
+def validate_student_id(student_id, for_deletion=False, for_student=False, for_minors=False):
     # Check if the student_id is only numbers
     if type(student_id) != int:
         raise InvalidIDException(f"{student_id} is not a valid entry. ID can only consist of numbers")
@@ -13,7 +13,11 @@ def validate_student_id(student_id, for_deletion=False, for_minors=False):
     if len(str(student_id).strip()) < 6:
         raise InvalidIDException(f"{student_id} is not a valid entry. ID must be 6 digits minimum")
     
-    if for_minors:
+    # This is used to update minors in the student_operations.py file, we only need to validate the ID, but
+    # we don't need to check if it already exists, as this is implied. So we return true before that check.
+    # Even though both, for_minors and for_student are used for the same update function, I set them as separate
+    # paramaters for more clarity of what is being validated.
+    if for_minors or for_student:
         return True
 
     # Check for an ID which already exists in the database (i.e. duplicate ID entry)

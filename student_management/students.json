@@ -108,11 +108,12 @@
     },
     {
         "student_id": 123902,
-        "name": "Shahjalal",
+        "name": "Test Two",
         "age": 25,
         "courses": [
             "Quran",
-            "Hadith"
+            "Hadith",
+            "Ai"
         ],
         "minor": [
             "Tarweeh",
