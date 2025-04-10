@@ -1,6 +1,8 @@
 import json
+# import serialisers for JSON encoding and decoding
 from models.serialisers import StudentEncoder, StudentDecoder
 
+# Path to save students to
 FILE_PATH = "student_management/students.json"
 
 def load_students():

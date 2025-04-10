@@ -18,6 +18,7 @@ def validate_student_id(student_id, for_deletion=False, for_minors=False):
 
     # Check for an ID which already exists in the database (i.e. duplicate ID entry)
     students_data = load_students()
+    # All existing student IDs
     existing_ids = {s.get_student_id() for s in students_data}
 
     if for_deletion:
@@ -28,10 +29,6 @@ def validate_student_id(student_id, for_deletion=False, for_minors=False):
         # When adding, ensure the student ID is unique
         if student_id in existing_ids:
             raise DuplicateIDException(f"Student ID {student_id} already exists. ID must be unique")
-            
-    # duplicate_count = sum(1 for s in students_data if s.get_student_id() == student_id)
-    # if duplicate_count > 0 and for_deletion is True: 
-    #     raise DuplicateIDException(f"One student with ID: {student_id}. ID must be unique")
     
     # if no conditions met, then the ID is valid
     return True

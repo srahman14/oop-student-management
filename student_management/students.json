@@ -95,18 +95,6 @@
         ]
     },
     {
-        "student_id": 123456,
-        "name": "i want to sleep",
-        "age": 19,
-        "courses": [
-            "LOL"
-        ],
-        "minor": [
-            "Im tired",
-            " as hell"
-        ]
-    },
-    {
         "student_id": 111111,
         "name": "Saeed",
         "age": 26,
@@ -127,8 +115,19 @@
             "Hadith"
         ],
         "minor": [
-            "lets",
-            " goo"
+            "Tarweeh",
+            "Qiyaam"
+        ]
+    },
+    {
+        "student_id": 100425,
+        "name": "Test",
+        "age": 20,
+        "courses": [
+            "Paleontology"
+        ],
+        "minor": [
+            "General Science"
         ]
     }
 ]

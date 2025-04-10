@@ -1,7 +1,10 @@
+# Creating custom error handling
 class InvalidIDException(Exception):
     # Exceptions for invalid ID input 
     def __init__(self, message):
+        # Store the message that was passed
         self.message = message
+        # Behave like a real exception
         super().__init__(self.message)
 
 class DuplicateIDException(Exception):
