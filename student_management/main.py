@@ -23,6 +23,7 @@ def main():
         if choice == 1:
             try: 
                 student_id = int(input("Enter the student ID (6 digits minimum): "))
+                validate_student_id(student_id, for_student=True)
                 student_name = input("Enter the student name: ")
                 student_age = int(input("Enter the student age: "))
                 undergrad = input("Is the student an undergrad with a minor (y/n): ")
@@ -32,7 +33,7 @@ def main():
                 courses_inputs = input("Enter the course(s) (separated by commas if more than 1 course): ")
                 courses = [course.strip() for course in courses_inputs.split(",")]
 
-                validate_student_id(student_id)
+                # validate_student_id(student_id)
 
                 if undergrad.lower().strip() == "y":
                     add_student(student_id, student_name, student_age, courses, True, minors)
@@ -66,7 +67,7 @@ def main():
 
 
                 
-                update_choice = int(input("Enter your choice (1-5): "))
+                update_choice = int(input("Enter your choice (1-9): "))
 
                 if update_choice == 1:
                     new_name = input("Enter new name: ").strip()
@@ -133,6 +134,9 @@ def main():
         
         elif choice == 4:
             list_all_students()
+        
+        else:
+            print("\nInvalid option.")
 
 if __name__ == "__main__":
     main()

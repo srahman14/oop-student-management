@@ -130,5 +130,43 @@
         "minor": [
             "General Science"
         ]
+    },
+    {
+        "student_id": 222222,
+        "name": "arin guzel",
+        "age": 19,
+        "courses": [
+            "Computer science"
+        ],
+        "minor": [
+            "n/a"
+        ]
+    },
+    {
+        "student_id": 109901,
+        "name": "test",
+        "age": 19,
+        "courses": [
+            "Computer Science"
+        ]
+    },
+    {
+        "student_id": 999999,
+        "name": "Test",
+        "age": 23,
+        "courses": [
+            "Computer Science"
+        ]
+    },
+    {
+        "student_id": 123000,
+        "name": "Test 2",
+        "age": 22,
+        "courses": [
+            "Computer Science"
+        ],
+        "minor": [
+            "French"
+        ]
     }
 ]

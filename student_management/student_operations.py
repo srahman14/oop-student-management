@@ -7,14 +7,14 @@ from exceptions import DuplicateIDException, InvalidIDException
 from validation import validate_student_id
 
 
-def find_student_by_id(student_id):
-    students_data = load_students()
-    for student in students_data:
-        # If student ID matches return student
-        if student.get_student_id() == student_id:
-            return student
-    # Default
-    return None
+# def find_student_by_id(student_id):
+#     students_data = load_students()
+#     for student in students_data:
+#         # If student ID matches return student
+#         if student.get_student_id() == student_id:
+#             return student
+#     # Default
+#     return None
 
 def add_student(student_id: int, name: str, age: int, courses: list, undergrad: bool, minor: list):
     try:
@@ -245,7 +245,7 @@ def remove_minor(student_id, remove_this_minor):
     save_students(students_data)
 
 def del_student(student_id):
-    students = load_students()  # Load current students
+    students = load_students()
 
     # for_deletion parameter is passed as true
     validate_student_id(student_id, for_deletion=True)
