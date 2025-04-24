@@ -163,10 +163,22 @@
         "name": "Test 2",
         "age": 22,
         "courses": [
-            "Computer Science"
+            "Computer Science",
+            "Biochem"
         ],
         "minor": [
-            "French"
+            "French",
+            "Spanish",
+            "German"
+        ]
+    },
+    {
+        "student_id": 123001,
+        "name": "John",
+        "age": 24,
+        "courses": [
+            "Robotics",
+            "Psychology"
         ]
     }
 ]

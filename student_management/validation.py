@@ -1,8 +1,34 @@
+"""
+validation.py
+--------------
+Provides validation logic for student IDs used throughout the Student Management System.
+
+This module defines a single utility function, `validate_student_id`, which validates
+the format and existence of student IDs for different operations (add, update, delete).
+It raises appropriate custom exceptions (`InvalidIDException`, `DuplicateIDException`) 
+based on the context of the operation.
+
+Flexible boolean flags (`for_deletion`, `for_student`, `for_minors`) are used to determine
+whether the ID must already exist or must be unique depending on the operation.
+
+Part of Task 4: Implement Exception Handling.
+Also supports validation workflows for Task 3 (CRUD) and Task 5 (File Storage).
+"""
+
 from exceptions import DuplicateIDException, InvalidIDException 
 from storage import load_students
 from models.student import Student
 
-def validate_student_id(student_id, for_deletion=False, for_student=False, for_minors=False):
+# Function for validating a student
+# Parameters:
+# - student_id
+# - for_deletion, used when a student is being deleted
+# - for_student, used when updating a student
+# - for_minors, used when updating an undergrad
+# - for_updating, used when updating in the main-menu
+def validate_student_id(student_id, for_deletion=False, for_student=False, for_minors=False, for_updating=False):
+    if str(student_id)[0] == "0":
+        raise InvalidIDException(f"{student_id} is not a valid entry. ID cannot begin with 0")
     # Check if the student_id is only numbers
     if type(student_id) != int:
         raise InvalidIDException(f"{student_id} is not a valid entry. ID can only consist of numbers")
@@ -25,10 +51,10 @@ def validate_student_id(student_id, for_deletion=False, for_student=False, for_m
     # All existing student IDs
     existing_ids = {s.get_student_id() for s in students_data}
 
-    if for_deletion:
+    if for_deletion or for_updating:
         # When deleting, ensure the student ID exists
         if student_id not in existing_ids:
-            raise InvalidIDException(f"Student ID {student_id} does not exist and cannot be deleted")
+            raise InvalidIDException(f"Student ID {student_id} does not exist")
     else:
         # When adding, ensure the student ID is unique
         if student_id in existing_ids:

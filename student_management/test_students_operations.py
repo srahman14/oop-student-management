@@ -1,4 +1,10 @@
-from student_operations import add_student, list_all_students, update_student, add_new_courses, del_student, remove_course, add_new_minors, remove_minor
+"""
+test_student_operations.py
+---------------------
+I used this file to test the student operations without having to traverse thruogh the main menu every time.
+"""
+
+from student_operations import add_student, list_all_students, update_student, add_new_courses, add_new_minors, del_student, remove_course
 
 # Adding students
 # add_student(101, "Alice", 19, ["Math", "Physics"])
@@ -24,10 +30,13 @@ from student_operations import add_student, list_all_students, update_student, a
 # remove_course(190325, "Linguistics")
 # Deleting Students
 
-# add_student(123321, "Delete ME", 0, ["DELETE", "ME"], True, "spanish")
-# del_student(123321)
-# add_new_minors(123321, ["french", "chinese"])
-# remove_minor(123321, "French")
+# add_new_minors(123000, ["Spanish"])
+# add_new_courses(123000, ["Biochem"])
+
+list_all_students()
+
+# add_student(111111, "Delete ME", 0, ["DELETE", "ME"])
+# del_student(111111)
 
 # print()
 # print("\nListing Students:")
