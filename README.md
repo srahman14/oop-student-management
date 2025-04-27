@@ -14,9 +14,9 @@ A Student Management System (SMS) built using Python and Object-Oriented Program
 ---
 
 ## Technologies
-- Python 3.x
+- Python 3
 - JSON (for file storage)
-- OOP Concepts: Encapsulation, Inheritance, Abstraction
+- OOP Concepts: Encapsulation, Inheritance, Abstraction, Polymorphism
 
 --- 
 
