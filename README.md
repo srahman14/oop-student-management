@@ -17,3 +17,47 @@ A Student Management System (SMS) built using Python and Object-Oriented Program
 - Python 3.x
 - JSON (for file storage)
 - OOP Concepts: Encapsulation, Inheritance, Abstraction
+
+--- 
+
+## Project Structure
+student_management/
+│
+├── models/
+│   ├── student.py
+│   ├── undergraduate.py
+│
+├── student_operations.py
+├── serialisers.py
+├── validation.py
+├── storage.py
+├── exceptions.py
+├── main.py
+│
+├── students.json         # (auto-created after running program)
+├── README.md
+
+---
+
+## Installation & Setup
+- Ensure you have Python 3 installed
+- Check your version:
+
+'''bash
+python --version
+
+- Run the program
+'''bash
+python main.py
+- Alternatively
+'''bash
+python3 main.py
+
+## How to use
+You can:
+- Follow the interactive menu in main.py
+- Add new students.
+- Update student details (including courses and minors).
+- Delete existing students.
+- List all students.
+- Data is saved automatically in students.json.
