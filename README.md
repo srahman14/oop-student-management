@@ -21,7 +21,7 @@ A Student Management System (SMS) built using Python and Object-Oriented Program
 --- 
 
 ## Project Structure
-'''pysqlite
+```pysqlite
 student_management/
 │
 ├── models/
@@ -37,24 +37,24 @@ student_management/
 │
 ├── students.json         # (auto-created after running program)
 ├── README.md
-'''
+```
 ---
 
 ## Installation & Setup
 - Ensure you have Python 3 installed
 - Check your version:
 
-'''bash
-python --version
-'''
-- Run the program
-'''bash
+```bash
 python main.py
-'''
+```
+- Run the program
+```bash
+python main.py
+```
 - Alternatively
-'''bash
+```bash
 python3 main.py
-'''
+```
 
 ## How to use
 You can:
