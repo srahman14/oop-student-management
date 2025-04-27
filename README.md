@@ -42,11 +42,7 @@ student_management/
 
 ## Installation & Setup
 - Ensure you have Python 3 installed
-- Check your version:
 
-```bash
-python main.py
-```
 - Run the program
 ```bash
 python main.py
