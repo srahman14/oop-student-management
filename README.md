@@ -42,14 +42,13 @@ student_management/
 
 ## Installation & Setup
 - Ensure you have Python 3 installed
-
+- Switch to student_management
+```bash
+cd student_management
+```
 - Run the program
 ```bash
 python main.py
-```
-- Alternatively
-```bash
-python3 main.py
 ```
 
 ## How to use
